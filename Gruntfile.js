@@ -153,5 +153,5 @@ module.exports = function(grunt) {
 
     // Set Tasks
     grunt.registerTask('default', []);
-    grunt.registerTask('init', ['mkdir:init']);
+    grunt.registerTask('init', ['mkdir:init', 'compass:all', 'coffee:all', 'imagemin:all', 'copy:images', 'copy:css', 'copy:scripts', 'copy:html', 'copy:extras', 'clean:all']);
 };
