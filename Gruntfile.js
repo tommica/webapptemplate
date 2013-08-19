@@ -87,9 +87,19 @@ module.exports = function(grunt) {
             },
 
             html: {
+                // Copy HTML
+                options: {
+                    processContentExclude: 'html/404.html',
+                    // Footer and Header added
+                    processContent: function(content) {
+                        var htmlHeader = grunt.file.read('html/partials/header.html');
+                        var htmlFooter = grunt.file.read('html/partials/footer.html');
+                        var ret = htmlHeader + content + htmlFooter;
+                        return ret;
+                    }
+                },
                 files: [
-                    // Copy HTML
-                    {expand: true, cwd: './html/', src: ['**'], dest: 'project/', filter: 'isFile'},
+                    {expand: true, cwd: './html/', src: ['*'], dest: 'project/', filter: 'isFile'},
                 ]
             },
 
