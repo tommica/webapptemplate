@@ -1,0 +1,24 @@
+{
+  "name": "webapptemplate",
+  "version": "0.0.1",
+  "description": "Boilerplate",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tommica/webapptemplate"
+  },
+  "author": "Tommi Carleman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tommica/webapptemplate/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-compass": "~0.4.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-imagemin": "~0.1.4",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-mkdir": "~0.1.1",
+    "grunt-ender": "~0.2.0"
+  }
+}
