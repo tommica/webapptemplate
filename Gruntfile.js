@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                 },
                 files: [
                     // First copy everything from the images folder & then copy the crushed files over
-                    {expand: true, cwd: './less/', src: ['*'], dest: './styleheets', filter: 'isFile'},
+                    {expand: true, cwd: './less/', src: ['*', '!bootstrap-ie7.less'], dest: './styleheets', filter: 'isFile'},
                 ]
             }
         },
