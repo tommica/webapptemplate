@@ -22,14 +22,16 @@ module.exports = function(grunt) {
             }
         },
 
-        // SASS/CSS
-        compass: {
+        // LESS
+        recess: {
             all: {
                 options: {
-                    config: 'config.rb',
-                    outputStyle: 'expanded',
-                    force: true,
-                }
+                    compile: true
+                },
+                files: [
+                    // First copy everything from the images folder & then copy the crushed files over
+                    {expand: true, cwd: './less/', src: ['*'], dest: './styleheets', filter: 'isFile'},
+                ]
             }
         },
 
@@ -46,19 +48,6 @@ module.exports = function(grunt) {
                     src: '*.{png,jpg,jpeg}',
                     dest: 'images_crushed'
                 }]
-            }
-        },
-
-        // Handling coffeescript
-        coffee: {
-            // Just one task to handle anything related to coffeescripts
-            all: {
-                expand: true,
-                flatten: true,
-                cwd: 'coffee',
-                src: ['**/*.coffee'],
-                dest: 'scripts',
-                ext: '.js'
             }
         },
 
@@ -119,17 +108,13 @@ module.exports = function(grunt) {
         // Handle watching
         watch: {
             // Process
-            sassW: {
-                files: ['sass/**'],
-                tasks: ['compass:all'],
-            },
-            coffeeW: {
-                files: ['coffee/**'],
-                tasks: ['coffee:all'],
-            },
             imageminW: {
                 files: ['images/**'],
                 tasks: ['imagemin:all', 'copy:images'],
+            },
+            lessW: {
+                files: ['less/**'],
+                tasks: ['recess:all', 'copy:css'],
             },
 
             // Copy
@@ -154,14 +139,13 @@ module.exports = function(grunt) {
 
     // Load the plugins
     grunt.loadNpmTasks('grunt-mkdir');
-    grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
-    grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-recess');
 
     // Set Tasks
     grunt.registerTask('default', []);
-    grunt.registerTask('init', ['mkdir:init', 'compass:all', 'coffee:all', 'imagemin:all', 'copy:images', 'copy:css', 'copy:scripts', 'copy:html', 'copy:extras', 'clean:all']);
+    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:images', 'copy:css', 'copy:scripts', 'copy:html', 'copy:extras', 'clean:all']);
 };
