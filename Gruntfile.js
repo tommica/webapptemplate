@@ -1,6 +1,6 @@
 /* global module */
 
-// The idea is that first the SASS/COFFEESCRIPT/JADE is compiled/processed
+// The idea is that first the LESS/HTML is compiled/processed
 // And then the result is stored in the right folder, where it is copied and manipulated more if needed to
 // the proper folder in project
 //
