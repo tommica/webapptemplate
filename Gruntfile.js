@@ -71,7 +71,7 @@ module.exports = function(grunt) {
             css: {
                 files: [
                     // Copy CSS
-                    {expand: true, cwd: './stylesheets/', src: ['**'], dest: 'project/stylesheets', filter: 'isFile'},
+                    {expand: true, cwd: './stylesheets/', src: ['**'], dest: 'project/stylesheets', filter: 'isFile', rename: function(dest, src){ return dest + src.replace('.less', '.css'); }},
                 ]
             },
 
