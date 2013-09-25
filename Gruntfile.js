@@ -107,6 +107,9 @@ module.exports = function(grunt) {
 
         // Handle watching
         watch: {
+            options: {
+                livereload: true
+            },
             // Process
             imageminW: {
                 files: ['images/**'],
@@ -134,7 +137,18 @@ module.exports = function(grunt) {
                 files: ['extras/**'],
                 tasks: ['copy:extras'],
             }
+        },
+        
+        nodestatic: {
+            server: {
+                options: {
+                    port: 1337,
+                    dev: true,
+                    base: 'project'
+                }
+            }
         }
+
     });
 
     // Load the plugins
@@ -144,8 +158,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-recess');
+    grunt.loadNpmTasks('grunt-nodestatic');
 
     // Set Tasks
     grunt.registerTask('default', []);
+    grunt.registerTask('dev', ['nodestatic', 'watch']);
     grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:images', 'copy:css', 'copy:scripts', 'copy:html', 'copy:extras', 'clean:all']);
 };
