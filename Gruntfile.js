@@ -108,7 +108,8 @@ module.exports = function(grunt) {
         // Handle watching
         watch: {
             options: {
-                livereload: true
+                livereload: true,
+                files: ['project/**']
             },
             // Process
             imageminW: {
