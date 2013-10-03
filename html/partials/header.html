@@ -11,16 +11,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="apple-touch-icon-precomposed" sizes="144×144" href="apple-touch-icon-144x144-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114×114" href="apple-touch-icon-114x114-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144×144" href="/apple-touch-icon-144x144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114×114" href="/apple-touch-icon-114x114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57-precomposed.png" />
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
-    <link href="stylesheets/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
     
     <!--[if lt IE 8]>
         <link href="stylesheets/bootstrap-ie7.css" media="print, screen, projection" rel="stylesheet" type="text/css" />
@@ -30,7 +30,23 @@
         <link href="stylesheets/ie.css" media="print, screen, projection" rel="stylesheet" type="text/css" />
     <![endif]-->
 
-    <script src="scripts/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="/scripts/vendor/modernizr-2.6.2.min.js"></script>
+
+    <script>
+        Modernizr.load([
+            }
+                load: '//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js',
+                complete: function() {
+                    if( !window.jQuery ) {
+                        Modernizr.load('/scripts/vendor/jquery-1.10.1.min.js');
+                    }
+                }
+            },
+            {
+                load: ['ielt9!/scripts/vendor/respond.min.js', '/scripts/site.js']
+            }
+        ]);
+    </script>
 </head>
 <body>
 
