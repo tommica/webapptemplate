@@ -75,23 +75,6 @@ module.exports = function(grunt) {
                 ]
             },
 
-            html: {
-                // Copy HTML
-                options: {
-                    processContentExclude: 'html/404.html',
-                    // Footer and Header added
-                    processContent: function(content) {
-                        var htmlHeader = grunt.file.read('html/partials/header.html');
-                        var htmlFooter = grunt.file.read('html/partials/footer.html');
-                        var ret = htmlHeader + content + htmlFooter;
-                        return ret;
-                    }
-                },
-                files: [
-                    {expand: true, cwd: './html/', src: ['*'], dest: 'project/', filter: 'isFile'},
-                ]
-            },
-
             extras: {
                 files: [
                     // Copy EXTRAS
@@ -132,7 +115,7 @@ module.exports = function(grunt) {
             },
             htmlW: {
                 files: ['html/**'],
-                tasks: ['copy:html'],
+                tasks: ['includes:html'],
             },
             extrasW: {
                 files: ['extras/**'],
@@ -148,6 +131,20 @@ module.exports = function(grunt) {
                     base: 'project'
                 }
             }
+        },
+
+        includes: {
+            html: {
+                cwd: 'html',
+                src: [ '*.html' ],
+                includePath: 'html',
+                dest: 'project/',
+        
+                options: {
+                    flatten: true,
+                    includeRegexp: /^(\s*)<&include\s+"(\S+)"&>\s*$/
+                }
+            }
         }
 
     });
@@ -160,9 +157,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-recess');
     grunt.loadNpmTasks('grunt-nodestatic');
+    grunt.loadNpmTasks('grunt-includes');
 
     // Set Tasks
     grunt.registerTask('default', []);
     grunt.registerTask('dev', ['nodestatic', 'watch']);
-    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:images', 'copy:css', 'copy:scripts', 'copy:html', 'copy:extras', 'clean:all']);
+    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:images', 'copy:css', 'copy:scripts', 'includes:html', 'copy:extras', 'clean:all']);
 };
