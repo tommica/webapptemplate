@@ -150,5 +150,5 @@ module.exports = function(grunt) {
     // Set Tasks
     grunt.registerTask('default', []);
     grunt.registerTask('dev', ['nodestatic', 'watch']);
-    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:images', 'copy:css', 'copy:scripts', 'includes:html', 'copy:extras', 'clean:all']);
+    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:css', 'copy:scripts', 'includes:html', 'copy:extras', 'clean:all']);
 };
