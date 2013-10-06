@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         mkdir: {
             init: {
                 options: {
-                    create: ['project', 'project/stylesheets', 'project/scripts', 'project/images']
+                    create: ['build', 'build/stylesheets', 'build/scripts', 'build/images']
                 }
             }
         },
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                 },
                 files: [
                     // First copy everything from the images folder & then copy the crushed files over
-                    {expand: true, cwd: './less/', src: ['*', '!bootstrap-ie7.less', '!boxsizing.htc'], dest: './stylesheets', filter: 'isFile', rename: function(dest, src){ return dest + '/' + src.replace('.less', '.css'); }},
+                    {expand: true, cwd: 'src/less/', src: ['*', '!bootstrap-ie7.less', '!boxsizing.htc'], dest: 'src/stylesheets', filter: 'isFile', rename: function(dest, src){ return dest + '/' + src.replace('.less', '.css'); }},
                 ]
             }
         },
@@ -44,81 +44,69 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: 'images',
-                    src: '*.{png,jpg,jpeg}',
-                    dest: 'images_crushed'
+                    cwd: 'src/images',
+                    src: '*.{png,jpg,jpeg,gif}',
+                    dest: 'build/images'
                 }]
             }
         },
 
         // Time to handle copying files
         copy: {
-            images: {
-                files: [
-                    // First copy everything from the images folder & then copy the crushed files over
-                    {expand: true, cwd: './images/', src: ['**'], dest: 'project/images', filter: 'isFile'},
-                    {expand: true, cwd: './images_crushed/', src: ['**'], dest: 'project/images', filter: 'isFile'},
-                ]
-            },
-
             scripts: {
                 files: [
                     // Copy scripts
-                    {expand: true, cwd: './scripts/', src: ['**'], dest: 'project/scripts', filter: 'isFile'},
+                    {expand: true, cwd: 'src/scripts/', src: ['**'], dest: 'build/scripts', filter: 'isFile'},
                 ]
             },
 
             css: {
                 files: [
                     // Copy CSS
-                    {expand: true, cwd: './stylesheets/', src: ['**'], dest: 'project/stylesheets', filter: 'isFile'},
+                    {expand: true, cwd: 'src/stylesheets/', src: ['**'], dest: 'build/stylesheets', filter: 'isFile'},
                 ]
             },
 
             extras: {
                 files: [
                     // Copy EXTRAS
-                    {expand: true, cwd: './extras/', src: ['**'], dest: 'project/', filter: 'isFile'},
+                    {expand: true, cwd: 'src/extras/', src: ['**'], dest: 'build/', filter: 'isFile'},
                 ]
             }
         },
 
         // Some folders are not needed
         clean: {
-            "all": ['project/stylesheets/smacss', 'project/stylesheets/bootstrap']
+            "all": ['build/stylesheets/smacss', 'project/stylesheets/bootstrap']
         },
 
         // Handle watching
         watch: {
             options: {
                 livereload: true,
-                files: ['project/**']
+                files: ['build/**']
             },
             // Process
             imageminW: {
-                files: ['images/**'],
-                tasks: ['imagemin:all', 'copy:images'],
+                files: ['src/images/**'],
+                tasks: ['imagemin:all'],
             },
             lessW: {
-                files: ['less/**'],
+                files: ['src/less/**'],
                 tasks: ['recess:all', 'copy:css'],
             },
 
             // Copy
-            cssW: {
-                files: ['scripts/**'],
-                tasks: ['copy:css', 'clean:all'],
-            },
             scriptsW: {
-                files: ['scripts/**'],
+                files: ['src/scripts/**'],
                 tasks: ['copy:scripts'],
             },
             htmlW: {
-                files: ['html/**'],
+                files: ['src/html/**'],
                 tasks: ['includes:html'],
             },
             extrasW: {
-                files: ['extras/**'],
+                files: ['src/extras/**'],
                 tasks: ['copy:extras'],
             }
         },
@@ -128,17 +116,17 @@ module.exports = function(grunt) {
                 options: {
                     port: 1337,
                     dev: true,
-                    base: 'project'
+                    base: 'build'
                 }
             }
         },
 
         includes: {
             html: {
-                cwd: 'html',
+                cwd: 'src/html',
                 src: [ '*.html' ],
                 includePath: 'html',
-                dest: 'project/',
+                dest: 'build/',
         
                 options: {
                     flatten: true,
