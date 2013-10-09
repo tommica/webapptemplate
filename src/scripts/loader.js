@@ -23,10 +23,16 @@ Modernizr.load([
                     nope: ['/scripts/vendor/respond.min.js']
                 },
 
-                // Load a polyfill for placeholder attributes
+                // Load a polyfill for html5 webforms (testing for placeholder is good as any)
                 {
                     test: Modernizr.customplaceholdertest,
-                    nope: ['/scripts/addons/polyfill-placeholder.js']
+                    nope: ['/scripts/vendor/js-webshim/minified/polyfiller.js'],
+                    complete: function() {
+                        if(Modernizr.customplaceholdertest) {
+                            $.webshims.setOptions("basePath", "/scripts/vendor/js-webshim/minified/shims/");
+                            $.webshims.polyfill('forms');
+                        }
+                    }
                 },
 
                 // Load default items
