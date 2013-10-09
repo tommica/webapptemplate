@@ -12,23 +12,28 @@ Modernizr.load([
 
     // Load some custom tests
     {
-        load: ['/scripts/addons/test-placeholder.js', '/scripts/addons/test-positionfixed.js']
-    },
+        load: ['/scripts/addons/test-placeholder.js', '/scripts/addons/test-positionfixed.js'],
+        complete: function() {
 
-    // If there is no support for media queries, load a polyfill to fix it
-    {
-        test: Modernizr.mq('only all'),
-        nope: ['/scripts/vendor/respond.min.js']
-    },
+            // Finally load the core polyfills, fixes and other important files
+            Modernizr.load([
+                // If there is no support for media queries, load a polyfill to fix it
+                {
+                    test: Modernizr.mq('only all'),
+                    nope: ['/scripts/vendor/respond.min.js']
+                },
 
-    // Load a polyfill for placeholder attributes
-    {
-        test: Modernizr.customPlaceHolderTest(),
-        nope: ['/scripts/addons/polyfill-placeholder.js']
-    },
+                // Load a polyfill for placeholder attributes
+                {
+                    test: Modernizr.customplaceholdertest,
+                    nope: ['/scripts/addons/polyfill-placeholder.js']
+                },
 
-    // Load default items
-    {
-        load: ['/scripts/site.js']
+                // Load default items
+                {
+                    load: ['/scripts/site.js']
+                }
+            ]);
+        }
     }
 ]);

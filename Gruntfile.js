@@ -70,7 +70,7 @@ module.exports = function(grunt) {
             extras: {
                 files: [
                     // Copy EXTRAS
-                    {expand: true, cwd: 'src/extras/', src: ['**'], dest: 'build/', filter: 'isFile'},
+                    {expand: true, cwd: 'src/extras/', src: ['**, .htaccess'], dest: 'build/', filter: 'isFile'},
                 ]
             }
         },
