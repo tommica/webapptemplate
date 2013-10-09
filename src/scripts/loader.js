@@ -28,9 +28,14 @@ Modernizr.load([
                     test: Modernizr.customplaceholdertest,
                     nope: ['/scripts/vendor/js-webshim/minified/polyfiller.js'],
                     complete: function() {
-                        if(Modernizr.customplaceholdertest) {
-                            $.webshims.setOptions("basePath", "/scripts/vendor/js-webshim/minified/shims/");
-                            $.webshims.polyfill('forms');
+                        if(!Modernizr.customplaceholdertest) {
+                            $(document).ready(function() {
+                                $.webshims.setOptions({
+                                    "basePath": "/scripts/vendor/js-webshim/minified/shims/",
+                                    "waitReady": false
+                                });
+                                $.webshims.polyfill('forms');
+                            });
                         }
                     }
                 },
