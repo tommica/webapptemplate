@@ -1,4 +1,4 @@
-*{box-sizing:border-box;behavior:url(./boxsizing.htc)}   
+*{box-sizing:border-box;behavior:url(/scripts/vendor/boxsizing.htc)}   
 audio,canvas,video{display:inline;zoom:1}
 html{font-size:100%}
 img{width:auto;height:auto;max-width:100%;vertical-align:middle;-ms-interpolation-mode:bicubic}
