@@ -25,10 +25,10 @@ Modernizr.load([
 
                 // Load a polyfill for html5 webforms (testing for placeholder is good as any)
                 {
-                    test: Modernizr.customplaceholdertest,
-                    nope: ['/scripts/vendor/js-webshim/minified/polyfiller.js'],
-                    complete: function() {
-                        if(!Modernizr.customplaceholdertest) {
+                    test: !Modernizr.customplaceholdertest,
+                    nope: {'webshim': '/scripts/vendor/js-webshim/minified/polyfiller.js'},
+                    callback: {
+                        'webshim': function() {
                             $(document).ready(function() {
                                 $.webshims.setOptions({
                                     "basePath": "/scripts/vendor/js-webshim/minified/shims/",
@@ -38,13 +38,13 @@ Modernizr.load([
                             });
                         }
                     }
-                },
-
-                // Load default items
-                {
-                    load: ['/scripts/site.js']
                 }
             ]);
         }
+    },
+
+    // Load default items
+    {
+        load: ['/scripts/site.js']
     }
 ]);
