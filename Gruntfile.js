@@ -36,7 +36,6 @@ module.exports = function(grunt) {
         },
 
         // Handle images
-        /*
         smushit: {
             // This one has only one task, any image in images folder will be crushed and result is outputted to the images_crushed folder
             all: {
@@ -46,7 +45,6 @@ module.exports = function(grunt) {
                 dest: 'build/images'
             }
         },
-        */
 
         // Time to handle copying files
         copy: {
@@ -149,6 +147,7 @@ module.exports = function(grunt) {
 
     // Load the plugins
     grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-smushit');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');

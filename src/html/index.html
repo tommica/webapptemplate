@@ -1,7 +1,7 @@
 {
-    "title": "testing this"
+    "siteTitle": "testing this"
 }
 
-{{= it.include("header.dot.html") }}
+{{= it.include("header.dot.html", {"siteTitle": it.siteTitle}) }}
 <p>Hello world! This is HTML5 Boilerplate.</p>
 {{= it.include("footer.dot.html") }}
