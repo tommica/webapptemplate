@@ -36,20 +36,17 @@ module.exports = function(grunt) {
         },
 
         // Handle images
-        imagemin: {
+        /*
+        smushit: {
             // This one has only one task, any image in images folder will be crushed and result is outputted to the images_crushed folder
             all: {
-                options: {
-                    optimizationLevel: 3
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'src/images',
-                    src: '*.{png,jpg,jpeg,gif}',
-                    dest: 'build/images'
-                }]
+                expand: true,
+                cwd: 'src/images',
+                src: '*.{png,jpg,jpeg,gif}',
+                dest: 'build/images'
             }
         },
+        */
 
         // Time to handle copying files
         copy: {
@@ -57,6 +54,13 @@ module.exports = function(grunt) {
                 files: [
                     // Copy scripts
                     {expand: true, cwd: 'src/scripts/', src: ['**'], dest: 'build/scripts', filter: 'isFile'},
+                ]
+            },
+            
+            images: {
+                files: [
+                    // Copy scripts
+                    {expand: true, cwd: 'src/images/', src: ['**'], dest: 'build/images', filter: 'isFile'},
                 ]
             },
 
@@ -89,7 +93,7 @@ module.exports = function(grunt) {
             // Process
             imageminW: {
                 files: ['src/images/**'],
-                tasks: ['imagemin:all'],
+                tasks: ['copy:images'],
             },
             lessW: {
                 files: ['src/less/**'],
@@ -124,12 +128,15 @@ module.exports = function(grunt) {
         stencil: {
             html: {
                 options: {
-                    partials: 'src/html/partials'
+                    partials: 'src/html/partials/',
+                    dot_template_settings: {
+                        strip: false
+                    }
                 },
                 files: [
                     {
                     expand: true,
-                    src: 'src/html/*',
+                    src: 'src/html/*.html',
                     dest: 'build',
                     ext: '.html',
                     flatten: true
@@ -142,7 +149,6 @@ module.exports = function(grunt) {
 
     // Load the plugins
     grunt.loadNpmTasks('grunt-mkdir');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -153,5 +159,5 @@ module.exports = function(grunt) {
     // Set Tasks
     grunt.registerTask('default', []);
     grunt.registerTask('dev', ['nodestatic', 'watch']);
-    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:css', 'copy:scripts', 'stencil:html', 'copy:extras', 'clean:all']);
+    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'smushit:all', 'copy:css', 'copy:scripts', 'stencil:html', 'copy:extras', 'clean:all']);
 };
