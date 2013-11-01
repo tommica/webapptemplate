@@ -121,17 +121,20 @@ module.exports = function(grunt) {
             }
         },
 
-        includes: {
+        stencil: {
             html: {
-                cwd: 'src/html',
-                src: [ '*.html' ],
-                includePath: 'html',
-                dest: 'build/',
-        
                 options: {
-                    flatten: true,
-                    includeRegexp: /^(\s*)<&include\s+"(\S+)"&>\s*$/
-                }
+                    partials: 'src/html/partials'
+                },
+                files: [
+                    {
+                    expand: true,
+                    src: 'src/html/*',
+                    dest: 'build',
+                    ext: '.html',
+                    flatten: true
+                    }
+                ]
             }
         }
 
@@ -145,10 +148,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-recess');
     grunt.loadNpmTasks('grunt-nodestatic');
-    grunt.loadNpmTasks('grunt-includes');
+    grunt.loadNpmTasks('grunt-stencil');
 
     // Set Tasks
     grunt.registerTask('default', []);
     grunt.registerTask('dev', ['nodestatic', 'watch']);
-    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:css', 'copy:scripts', 'includes:html', 'copy:extras', 'clean:all']);
+    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:css', 'copy:scripts', 'stencil:html', 'copy:extras', 'clean:all']);
 };
