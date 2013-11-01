@@ -105,7 +105,7 @@ module.exports = function(grunt) {
             },
             htmlW: {
                 files: ['src/html/**'],
-                tasks: ['includes:html'],
+                tasks: ['stencil:html'],
             },
             extrasW: {
                 files: ['src/extras/**'],
