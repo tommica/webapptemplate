@@ -36,13 +36,18 @@ module.exports = function(grunt) {
         },
 
         // Handle images
-        smushit: {
+        imagemin: {
             // This one has only one task, any image in images folder will be crushed and result is outputted to the images_crushed folder
             all: {
-                expand: true,
-                cwd: 'src/images',
-                src: '*.{png,jpg,jpeg,gif}',
-                dest: 'build/images'
+                options: {
+                    optimizationLevel: 3
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/images/',
+                    src: ['**/*.{png,jpg,gif,jpeg}'],
+                    dest: 'build/images/'
+                }]
             }
         },
 
@@ -91,7 +96,7 @@ module.exports = function(grunt) {
             // Process
             imageminW: {
                 files: ['src/images/**'],
-                tasks: ['copy:images'],
+                tasks: ['imagemin:all'],
             },
             lessW: {
                 files: ['src/less/**'],
@@ -147,7 +152,7 @@ module.exports = function(grunt) {
 
     // Load the plugins
     grunt.loadNpmTasks('grunt-mkdir');
-    grunt.loadNpmTasks('grunt-smushit');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -158,5 +163,5 @@ module.exports = function(grunt) {
     // Set Tasks
     grunt.registerTask('default', []);
     grunt.registerTask('dev', ['nodestatic', 'watch']);
-    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'smushit:all', 'copy:css', 'copy:scripts', 'stencil:html', 'copy:extras', 'clean:all']);
+    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:css', 'copy:scripts', 'stencil:html', 'copy:extras', 'clean:all']);
 };
