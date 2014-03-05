@@ -23,14 +23,14 @@ module.exports = function(grunt) {
         },
 
         // LESS
-        recess: {
+        less: {
             all: {
                 options: {
-                    compile: true
+                    cleancss: false
                 },
                 files: [
                     // First copy everything from the images folder & then copy the crushed files over
-                    {expand: true, cwd: 'src/less/', src: ['*', '!bootstrap-ie7.less', '!boxsizing.htc'], dest: 'src/stylesheets', filter: 'isFile', rename: function(dest, src){ return dest + '/' + src.replace('.less', '.css'); }},
+                    {expand: true, cwd: 'src/less/', src: ['*', '!bootstrap-ie7.less', '!boxsizing.htc', 'code/*'], dest: 'src/stylesheets', filter: 'isFile', rename: function(dest, src){ return dest + '/' + src.replace('.less', '.css'); }},
                 ]
             }
         },
@@ -100,7 +100,7 @@ module.exports = function(grunt) {
             },
             lessW: {
                 files: ['src/less/**'],
-                tasks: ['recess:all', 'copy:css'],
+                tasks: ['less:all', 'copy:css'],
             },
 
             // Copy
@@ -156,12 +156,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-recess');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-nodestatic');
     grunt.loadNpmTasks('grunt-stencil');
 
     // Set Tasks
     grunt.registerTask('default', []);
     grunt.registerTask('dev', ['nodestatic', 'watch']);
-    grunt.registerTask('init', ['mkdir:init', 'recess:all', 'imagemin:all', 'copy:css', 'copy:scripts', 'stencil:html', 'copy:extras', 'clean:all']);
+    grunt.registerTask('init', ['mkdir:init', 'less:all', 'imagemin:all', 'copy:css', 'copy:scripts', 'stencil:html', 'copy:extras', 'clean:all']);
 };
